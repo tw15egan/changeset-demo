@@ -1,0 +1,21 @@
+name: changesets
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  changeset:
+    if: github.repository == 'tw15egan/changeset-demo'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js 14.x
+        uses: actions/setup-node@main
+        with:
+          node-version: 14.x
+      - name: Install dependencies
+        run: yarn install --immutable --immutable-cache
