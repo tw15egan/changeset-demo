@@ -1,5 +1,6 @@
 {
   "name": "changeset-demo",
+  "repository": "git@github.com:tw15egan/changeset-demo.git",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
