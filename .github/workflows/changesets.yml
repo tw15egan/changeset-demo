@@ -19,3 +19,18 @@ jobs:
           node-version: 14.x
       - name: Install dependencies
         run: yarn install --immutable --immutable-cache
+      - name: Create .npmrc file
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=$GITHUB_TOKEN" > "$HOME/.npmrc"
+          echo '@tw15egan:registry=https://npm.pkg.github.com/' >> "$HOME/.npmrc"
+      - name: Create Release Pull Request
+        uses: changesets/action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          title: 'Scheduled release'
+          commit: 'chore(project): run changeset version'
+          version: yarn changeset version
+          publish: yarn changeset publish
